@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 using StudentService.Services;
 using StudentService.Settings;
 using Microsoft.Extensions.Options;
@@ -28,6 +29,31 @@ var app = builder.Build();
 // 🔹 Pipeline
 app.UseSwagger();
 app.UseSwaggerUI();
+=======
+using InternshipService.Services;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Ajouter le service
+builder.Services.AddSingleton<InternshipManager>();
+
+// Swagger / OpenAPI
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// Ajouter les controllers
+builder.Services.AddControllers();
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+>>>>>>> origin/intership
 
 app.MapControllers();
 
