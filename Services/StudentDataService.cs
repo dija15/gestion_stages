@@ -9,7 +9,11 @@ namespace StudentService.Services;
 
 public class StudentDataService : IStudentService
 {
+
     private readonly IMongoCollection<Student> _students;
+
+    private readonly IMongoCollection<Skill> _skills;
+
 
     public StudentDataService(IOptions<MongoDbSettings> options)
     {
@@ -17,6 +21,8 @@ public class StudentDataService : IStudentService
         var client = new MongoClient(settings.ConnectionString);
         var database = client.GetDatabase(settings.DatabaseName);
         _students = database.GetCollection<Student>(settings.StudentsCollectionName);
+        _skills = database.GetCollection<Skill>(settings.SkillsCollectionName);
+        
     }
 
     // ===============================

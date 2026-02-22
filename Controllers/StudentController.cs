@@ -4,6 +4,7 @@ using StudentService.Services;
 
 namespace StudentService.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class StudentController : ControllerBase
