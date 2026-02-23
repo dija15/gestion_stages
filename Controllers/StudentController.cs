@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using StudentService.Models;
 using StudentService.Services;
+<<<<<<< HEAD
 using Microsoft.AspNetCore.Authorization;
+=======
+>>>>>>> 7058157f69f460eeee12acf3ca7192394e281f41
 
 namespace StudentService.Controllers;
 
