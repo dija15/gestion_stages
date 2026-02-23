@@ -40,3 +40,4 @@ D:\InternshipService\obj\Debug\net10.0\refint\InternshipService.dll
 D:\InternshipService\obj\Debug\net10.0\InternshipService.pdb
 D:\InternshipService\obj\Debug\net10.0\InternshipService.genruntimeconfig.cache
 D:\InternshipService\obj\Debug\net10.0\ref\InternshipService.dll
+D:\InternshipService\obj\Debug\net10.0\InternshipService.sourcelink.json
