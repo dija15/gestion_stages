@@ -1,4 +1,3 @@
-// Version améliorée de votre jenkinsfile avec vérifications
 pipeline {
     agent any
 
@@ -22,13 +21,11 @@ pipeline {
         }
 
         stage('Restore') {
-            stage('Restore') {
-             steps {
-                  bat 'dotnet restore gestion_stages.sln'
-             }
-        
+            steps {
+                bat 'dotnet restore gestion_stages.sln'
             }
         }
+
         stage('Build') {
             steps {
                 bat 'dotnet build gestion_stages.sln --configuration Release'
@@ -39,7 +36,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Test') {
             steps {
                 bat 'dotnet test gestion_stages.sln --configuration Release --no-build'
@@ -51,7 +48,7 @@ pipeline {
             }
         }
     }
-    
+
     post {
         failure {
             echo 'Pipeline failed!'
