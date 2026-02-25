@@ -22,16 +22,13 @@ pipeline {
         }
 
         stage('Restore') {
-            steps {
-                bat 'dotnet restore gestion_stages.sln'
-            }
-            post {
-                failure {
-                    echo 'Restore failed!'
-                }
+            stage('Restore') {
+             steps {
+                  bat 'dotnet restore gestion_stages.sln'
+             }
+        
             }
         }
-        
         stage('Build') {
             steps {
                 bat 'dotnet build gestion_stages.sln --configuration Release'
