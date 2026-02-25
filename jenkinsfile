@@ -1,23 +1,27 @@
 pipeline {
     agent any
 
+    options {
+        skipDefaultCheckout(false)
+    }
+
     stages {
+        stage('Checkout') {
+            steps {
+                deleteDir()
+                checkout scm
+            }
+        }
+
+        stage('Debug') {
+            steps {
+                bat 'dir /s'
+            }
+        }
 
         stage('Restore') {
             steps {
-                bat 'dotnet restore'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                bat 'dotnet build --no-restore'
-            }
-        }
-//test
-        stage('Test') {
-            steps {
-                bat 'dotnet test --no-build --verbosity normal'
+                bat 'dotnet restore gestion_stages.sln'
             }
         }
     }
