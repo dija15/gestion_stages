@@ -1,0 +1,8 @@
+D:\gestion_stages\MatchingService\obj\Debug\net10.0\MatchingService.csproj.AssemblyReference.cache
+D:\gestion_stages\MatchingService\obj\Debug\net10.0\rpswa.dswa.cache.json
+D:\gestion_stages\MatchingService\obj\Debug\net10.0\MatchingService.GeneratedMSBuildEditorConfig.editorconfig
+D:\gestion_stages\MatchingService\obj\Debug\net10.0\MatchingService.AssemblyInfoInputs.cache
+D:\gestion_stages\MatchingService\obj\Debug\net10.0\MatchingService.AssemblyInfo.cs
+D:\gestion_stages\MatchingService\obj\Debug\net10.0\MatchingService.csproj.CoreCompileInputs.cache
+D:\gestion_stages\MatchingService\obj\Debug\net10.0\MatchingService.MvcApplicationPartsAssemblyInfo.cs
+D:\gestion_stages\MatchingService\obj\Debug\net10.0\MatchingService.MvcApplicationPartsAssemblyInfo.cache
