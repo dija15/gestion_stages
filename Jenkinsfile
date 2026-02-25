@@ -1,3 +1,4 @@
+// Version améliorée de votre jenkinsfile avec vérifications
 pipeline {
     agent any
 
@@ -13,9 +14,10 @@ pipeline {
             }
         }
 
-        stage('Debug') {
+        stage('Debug - Voir fichiers') {
             steps {
                 bat 'dir /s'
+                bat 'echo Current directory: %CD%'
             }
         }
 
@@ -23,16 +25,42 @@ pipeline {
             steps {
                 bat 'dotnet restore gestion_stages.sln'
             }
+            post {
+                failure {
+                    echo 'Restore failed!'
+                }
+            }
         }
-         stage('Build') {
+        
+        stage('Build') {
             steps {
                 bat 'dotnet build gestion_stages.sln --configuration Release'
             }
+            post {
+                failure {
+                    echo 'Build failed!'
+                }
+            }
         }
+        
         stage('Test') {
             steps {
                 bat 'dotnet test gestion_stages.sln --configuration Release --no-build'
             }
+            post {
+                failure {
+                    echo 'Tests failed!'
+                }
+            }
+        }
+    }
+    
+    post {
+        failure {
+            echo 'Pipeline failed!'
+        }
+        success {
+            echo 'Pipeline succeeded!'
         }
     }
 }
