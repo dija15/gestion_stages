@@ -17,15 +17,10 @@ pipeline {
 
         stage('Restore') {
             steps {
-                // On parcourt tous les .csproj pour les restaurer
-                script {
-                    def projects = findFiles(glob: 'gestion_stages/**/*.csproj')
-                    for (p in projects) {
-                        echo "Restoring ${p.path}"
-                        bat "dotnet restore \"${p.path}\""
-                    }
-                }
-            }
+                dir('gestion_stages') {
+                     bat 'dotnet restore gestion_stages.sln --no-cache --verbosity detailed'
+                 }
+           }
         }
 
         stage('Build') {
