@@ -24,5 +24,15 @@ pipeline {
                 bat 'dotnet restore gestion_stages.sln'
             }
         }
+         stage('Build') {
+            steps {
+                bat 'dotnet build gestion_stages.sln --configuration Release'
+            }
+        }
+        stage('Test') {
+            steps {
+                bat 'dotnet test gestion_stages.sln --configuration Release --no-build'
+            }
+        }
     }
 }
