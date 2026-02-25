@@ -1,58 +1,54 @@
 pipeline {
     agent any
 
+    environment {
+        DOTNET_CLI_TELEMETRY_OPTOUT = "1"
+        DOTNET_SKIP_FIRST_TIME_EXPERIENCE = "1"
+    }
+
     stages {
-        stage('Checkout') {
-            steps {
-                deleteDir()
-                checkout scm
-            }
-        }
-
-        stage('Debug - Voir fichiers') {
-            steps {
-                bat 'dir /s'
-            }
-        }
-
         stage('Restore') {
             steps {
-                dir('gestion_stage') {
-                     bat 'dotnet restore gestion_stages.sln --no-cache --verbosity detailed'
-                 }
-           }
+                echo 'Nettoyage des caches NuGet et restauration des packages...'
+                bat 'dotnet nuget locals all --clear'
+                bat 'dotnet restore gestion_stages.sln'
+            }
         }
 
         stage('Build') {
             steps {
-                script {
-                    def projects = findFiles(glob: 'gestion_stages/**/*.csproj')
-                    for (p in projects) {
-                        echo "Building ${p.path}"
-                        bat "dotnet build \"${p.path}\" --configuration Release"
-                    }
-                }
+                echo 'Compilation de la solution...'
+                bat 'dotnet build gestion_stages.sln --configuration Debug'
             }
         }
 
         stage('Test') {
             steps {
-                script {
-                    def projects = findFiles(glob: 'gestion_stages/**/*.csproj')
-                    for (p in projects) {
-                        // On teste seulement si le projet contient des tests
-                        if (p.path.toLowerCase().contains("test")) {
-                            echo "Testing ${p.path}"
-                            bat "dotnet test \"${p.path}\" --no-build --configuration Release"
-                        }
-                    }
-                }
+                echo 'Exécution des tests...'
+                // Si tu as des projets de test, ajuste le chemin
+                // Exemple: bat 'dotnet test gestion_stages/tests/UnitTests/UnitTests.csproj --configuration Debug'
+                bat 'dotnet test gestion_stages.sln --configuration Debug'
+            }
+        }
+
+        stage('Debug Info') {
+            steps {
+                echo 'Liste des fichiers compilés pour vérification...'
+                bat 'dir /s gestion_stages\\bin'
+                bat 'dir /s gestion_stages\\obj'
             }
         }
     }
 
     post {
-        failure { echo 'Pipeline failed!' }
-        success { echo 'Pipeline succeeded!' }
+        always {
+            echo 'Pipeline terminé.'
+        }
+        success {
+            echo 'Build réussi !'
+        }
+        failure {
+            echo 'Build échoué.'
+        }
     }
 }
