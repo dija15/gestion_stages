@@ -8,6 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                // Nettoyer le workspace avant le checkout
                 deleteDir()
                 checkout scm
             }
@@ -22,13 +23,18 @@ pipeline {
 
         stage('Restore') {
             steps {
-                bat 'dotnet restore gestion_stages.sln'
+                // Se placer dans le dossier gestion_stages pour restaurer les projets
+                dir('gestion_stages') {
+                    bat 'dotnet restore gestion_stages.sln'
+                }
             }
         }
 
         stage('Build') {
             steps {
-                bat 'dotnet build gestion_stages.sln --configuration Release'
+                dir('gestion_stages') {
+                    bat 'dotnet build gestion_stages.sln --configuration Release'
+                }
             }
             post {
                 failure {
@@ -39,7 +45,9 @@ pipeline {
 
         stage('Test') {
             steps {
-                bat 'dotnet test gestion_stages.sln --configuration Release --no-build'
+                dir('gestion_stages') {
+                    bat 'dotnet test gestion_stages.sln --configuration Release --no-build'
+                }
             }
             post {
                 failure {
