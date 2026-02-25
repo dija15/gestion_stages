@@ -17,7 +17,7 @@ pipeline {
 
         stage('Restore') {
             steps {
-                dir('gestion_stages') {
+                dir('gestion_stage') {
                      bat 'dotnet restore gestion_stages.sln --no-cache --verbosity detailed'
                  }
            }
