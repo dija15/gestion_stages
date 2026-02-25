@@ -2,11 +2,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternshipService", "InternshipService\InternshipService.csproj", "{AC52BAD5-0EEE-9FE7-8DCB-F07DB8371EB6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternshipService", "gestion_stages\InternshipService\InternshipService.csproj", "{AC52BAD5-0EEE-9FE7-8DCB-F07DB8371EB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchingService", "MatchingService\MatchingService.csproj", "{F428FF95-8D2A-DF5F-7938-2B9AA3907A68}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchingService", "gestion_stages\MatchingService\MatchingService.csproj"", "{F428FF95-8D2A-DF5F-7938-2B9AA3907A68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentService", "StudentService\StudentService.csproj", "{89E42090-449C-A049-B5F5-8F3577574545}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentService", "gestion_stages\StudentService\StudentService.csproj", "{89E42090-449C-A049-B5F5-8F3577574545}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
