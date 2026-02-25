@@ -1,14 +1,9 @@
 pipeline {
     agent any
 
-    options {
-        skipDefaultCheckout(false)
-    }
-
     stages {
         stage('Checkout') {
             steps {
-                // Nettoyer le workspace avant le checkout
                 deleteDir()
                 checkout scm
             }
@@ -17,52 +12,52 @@ pipeline {
         stage('Debug - Voir fichiers') {
             steps {
                 bat 'dir /s'
-                bat 'echo Current directory: %CD%'
             }
         }
 
         stage('Restore') {
             steps {
-                // Se placer dans le dossier gestion_stages pour restaurer les projets
-                dir('gestion_stages') {
-                    bat 'dotnet restore gestion_stages.sln'
+                // On parcourt tous les .csproj pour les restaurer
+                script {
+                    def projects = findFiles(glob: 'gestion_stages/**/*.csproj')
+                    for (p in projects) {
+                        echo "Restoring ${p.path}"
+                        bat "dotnet restore \"${p.path}\""
+                    }
                 }
             }
         }
 
         stage('Build') {
             steps {
-                dir('gestion_stages') {
-                    bat 'dotnet build gestion_stages.sln --configuration Release'
-                }
-            }
-            post {
-                failure {
-                    echo 'Build failed!'
+                script {
+                    def projects = findFiles(glob: 'gestion_stages/**/*.csproj')
+                    for (p in projects) {
+                        echo "Building ${p.path}"
+                        bat "dotnet build \"${p.path}\" --configuration Release"
+                    }
                 }
             }
         }
 
         stage('Test') {
             steps {
-                dir('gestion_stages') {
-                    bat 'dotnet test gestion_stages.sln --configuration Release --no-build'
-                }
-            }
-            post {
-                failure {
-                    echo 'Tests failed!'
+                script {
+                    def projects = findFiles(glob: 'gestion_stages/**/*.csproj')
+                    for (p in projects) {
+                        // On teste seulement si le projet contient des tests
+                        if (p.path.toLowerCase().contains("test")) {
+                            echo "Testing ${p.path}"
+                            bat "dotnet test \"${p.path}\" --no-build --configuration Release"
+                        }
+                    }
                 }
             }
         }
     }
 
     post {
-        failure {
-            echo 'Pipeline failed!'
-        }
-        success {
-            echo 'Pipeline succeeded!'
-        }
+        failure { echo 'Pipeline failed!' }
+        success { echo 'Pipeline succeeded!' }
     }
 }
